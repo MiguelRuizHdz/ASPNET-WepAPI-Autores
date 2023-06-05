@@ -1,4 +1,5 @@
 ﻿using Microsoft.EntityFrameworkCore;
+using System.Text.Json.Serialization;
 
 namespace WepApiAutores
 {
@@ -13,7 +14,8 @@ namespace WepApiAutores
 
         public void ConfigureServices(IServiceCollection services) 
         {
-            services.AddControllers();
+            services.AddControllers()
+                    .AddJsonOptions(x => x.JsonSerializerOptions.ReferenceHandler = ReferenceHandler.IgnoreCycles);
             services.AddDbContext<ApplicationDbContext>(options => 
                 options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));
 

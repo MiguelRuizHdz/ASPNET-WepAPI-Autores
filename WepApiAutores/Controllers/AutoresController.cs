@@ -16,7 +16,7 @@ namespace WepApiAutores.Controllers
         [HttpGet] 
         public async Task<ActionResult<List<Autor>>> Get()
         {
-            return await _context.Autores.ToListAsync();
+            return await _context.Autores.Include(x => x.Libros).ToListAsync();
         }
 
         [HttpPost]
