@@ -14,7 +14,9 @@ namespace WepApiAutores.Controllers
             _context = context;
         }
 
-        [HttpGet] 
+        [HttpGet] // api/autores
+        [HttpGet("listado")] // api/autores/listado
+        [HttpGet("/listado")] // listado
         public async Task<ActionResult<List<Autor>>> Get()
         {
             return await _context.Autores.Include(x => x.Libros).ToListAsync();
