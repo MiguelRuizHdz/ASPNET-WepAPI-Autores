@@ -13,10 +13,17 @@ namespace WepApiAutores.Controllers
         {
             _context = context;
         }
+
         [HttpGet] 
         public async Task<ActionResult<List<Autor>>> Get()
         {
             return await _context.Autores.Include(x => x.Libros).ToListAsync();
+        }
+
+        [HttpGet("primero")] //api/autores/primero
+        public async Task<ActionResult<Autor>> PrimerAutor()
+        {
+            return await _context.Autores.FirstOrDefaultAsync();
         }
 
         [HttpPost]
