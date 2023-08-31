@@ -22,10 +22,36 @@ namespace WepApiAutores.Controllers
             return await _context.Autores.Include(x => x.Libros).ToListAsync();
         }
 
-        [HttpGet("primero")] //api/autores/primero
+        [HttpGet("primero")] // api/autores/primero
         public async Task<ActionResult<Autor>> PrimerAutor()
         {
             return await _context.Autores.FirstOrDefaultAsync();
+        }
+
+        [HttpGet("{id:int}/{param2=persona}/{param3?}")] //api/autores/1
+        public async Task<ActionResult<Autor>> Get(int id, string param2, string param3)
+        {
+            var autor = await _context.Autores.FirstOrDefaultAsync(x => x.Id == id);
+
+            if (autor == null)
+            {
+                return NotFound();
+            }
+
+            return autor;
+        }
+
+        [HttpGet("{nombre}")] //api/autores/1
+        public async Task<ActionResult<Autor>> Get(string nombre)
+        {
+            var autor = await _context.Autores.FirstOrDefaultAsync(x => x.Nombre.Contains(nombre));
+
+            if (autor == null)
+            {
+                return NotFound();
+            }
+
+            return autor;
         }
 
         [HttpPost]
